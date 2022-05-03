@@ -1,0 +1,43 @@
+*.asv
+*.autosave
+*.o
+*.obj
+*_breach.slx
+*_param_sets.mat
+*_properties.mat
+
+Examples/*.dat
+Examples/variablescmaes.mat
+
+slprj/
+
+# Ignore everything in Ext...
+Ext/*
+# ... except
+!Ext/Classes/
+!Ext/Models/
+!Ext/ModelsData/
+!Ext/Specs/
+!Ext/Toolboxes/
+toggleHighDPISupport.p
+*.bck
+*.bckup
+html
+standard-release.sh
+
+wiki/
+
+# Debugging stuff 
+@STL_Formula/private/matlab.mat
+@STL_Formula/private/plot_bug.m
+@STL_Formula/private/recomp.m
+Ext/ModelsData
+/Examples/docrun_backup.mat
+/Ext/Toolboxes/jsonlab/examples/selftest.*
+fileServerFolder
+docrun_backup.mat
+*.exe
+*.r2015a
+*_ert_rtw
+*.7z
+*.slxc
