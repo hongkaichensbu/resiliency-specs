@@ -30,16 +30,23 @@ Execute example2_plot.m file.
 
 We use an [implememtation](https://github.com/yrlu/quadrotor) of quadrotor modeling used in the GRASP UAV testbed [1].
 
-> Michael, Nathan, et al. "The GRASP multiple micro-uav testbed." IEEE Robotics & Automation Magazine 17.3 (2010): 56-65. 
+> [1] Michael, Nathan, et al. "The GRASP multiple micro-UAV testbed." IEEE Robotics & Automation Magazine 17.3 (2010): 56-65. 
 
 ### Re-produce results in the paper
 
-Run 
+Run trace_uav.m file in uav_example/control.
 
 ## Flock Formation
 
-We use an implememtation of the Reynolds flocking model for generating trajectories. 
+We use an implememtation of the Reynolds flocking model [2] for generating trajectories.
+
+> [2] Reynolds, Craig W. "Flocks, herds and schools: A distributed behavioral model." Proceedings of the 14th Annual Conference on Computer Graphics and Interactive Techniques. 1987.
+> [3] Reynolds, Craig W. "Steering behaviors for autonomous characters." Game Developers Conference. Vol. 1999. 1999.
 
 ### Re-produce results in the paper
 
 Run the trace1.m file. Then run plot_flock_snapshots.m file.
+
+### Run the flock simulation
+
+Run Boids.m file.

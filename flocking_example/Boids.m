@@ -12,7 +12,7 @@ iteration = 5001;    % Number of simulation times.
 b_max_speed = 2;      % Maximum speed of boids.
 p_max_speed = 1.8;      % Maximum speed of predators.
 
-WRITE_VIDEO = 0;
+WRITE_VIDEO = 1;
 
 % Create a World object.
 world = World(height, width);
@@ -20,14 +20,6 @@ world = World(height, width);
 % Create an array of Boid objects.
 for i = 1: numBoids
     boids(i)= Boid;
-end
-
-
-% Create an array of Predator objects.
-if numPreds == 0
-    preds = 0;
-else
-    preds(numPreds) = Predator;
 end
 
 rng(51);
@@ -40,16 +32,6 @@ for i = 1 : numBoids
     boids(i).coord = [(rand * height - 1) + 1, (rand * width - 1) + 1];
     boids(i).set_height_and_width(height, width);
     boids(i).set_max_speed(b_max_speed);
-end
-
-% Initialize the preds with random coordinate and velocity.
-if numPreds ~= 0
-    for i = 1 : numel(preds)
-        preds(i).coord = [(rand * height - 1) + 1, (rand * width - 1) + 1];
-        preds(i).set_max_speed(b_max_speed);
-        preds(i).set_height_and_width(height, width);
-        preds(i).velocity = [rand * (p_max_speed * 2) - (p_max_speed / 2), rand * (p_max_speed * 2) - (p_max_speed / 2)];
-    end
 end
 
 if WRITE_VIDEO == 1
@@ -84,7 +66,7 @@ for t = 1 : iteration
     displace_numBoids = 20;
     picked = idx(1:displace_numBoids);
     for i = 1 : numBoids
-        boids(i).move(boids_tmp, preds);
+        boids(i).move(boids_tmp);
         % location disturbance
         if ismember(i, picked)
             if (t > 1000 && t <1500)
@@ -98,14 +80,6 @@ for t = 1 : iteration
         world.draw_boids(boids(i));
     end
 
-
-    % Simulation of predators.
-    if numPreds ~= 0
-        for j = 1 : numel(preds)
-            preds(j).move(boids_tmp);
-            world.draw_predator(preds(j));
-        end
-    end
     if WRITE_VIDEO == 1
         writeVideo(video, imresize(world.outputWorld, [height, width]));
     end

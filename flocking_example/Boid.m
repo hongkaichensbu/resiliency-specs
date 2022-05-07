@@ -32,17 +32,16 @@ classdef Boid < handle
         % velocity, and the 5 rules, which are cohesion, separation,
         % alignment, edge avoidance, and predator avoidance.
         % Input : Array of boids, Array of predators
-        function obj = move(obj, boids, predators)
+        function obj = move(obj, boids)
             obj.findNeighbors(boids);
             [v1x, v1y] = obj.avoid_edge();
             [v2x, v2y] = obj.cohesion();
             [v3x, v3y] = obj.separation();
             [v4x, v4y] = obj.alignment();
-            [v5x, v5y] = obj.avoid_predators(predators);
             % New velocity is previous velocity plus change of velocity due
             % to the rules.
-            obj.velocity(1) = obj.velocity(1) + (v1x + v2x + v3x + v4x + v5x) / 2;
-            obj.velocity(2) = obj.velocity(2) + (v1y + v2y + v3y + v4y + v5y) / 2;
+            obj.velocity(1) = obj.velocity(1) + (v1x + v2x + v3x + v4x) / 2;
+            obj.velocity(2) = obj.velocity(2) + (v1y + v2y + v3y + v4y) / 2;
             obj.limit_speed();
             obj.coord(1) = obj.coord(1) + obj.velocity(1);
             obj.coord(2) = obj.coord(2) + obj.velocity(2);
@@ -169,7 +168,7 @@ classdef Boid < handle
                 x = 1.5;
                 % If the boid is reaching the southern border, then the vector
                 % returned is [-1.5, 0].
-            elseif obj.coord(1) > obj.height - (obj.height / 10);
+            elseif obj.coord(1) > obj.height - (obj.height / 10)
                 x = -1.5;
             end
             % If the boid is reaching the western border, then the vector
@@ -178,51 +177,10 @@ classdef Boid < handle
                 y = 1.5;
                 % If the boid is reaching the eastern border, then the vector
                 % returned is [0, -1.5].
-            elseif obj.coord(2) > obj.width - (obj.width / 10);
+            elseif obj.coord(2) > obj.width - (obj.width / 10)
                 y = -1.5;
             end
-        end
-        
-        % Rule 5. Method that makes boid turn away from the predator.
-        % If a predator is within a certain distance from the boid, then
-        % it returns a vector that faces to the opposite direction of the
-        % predator, divided b a coefficient.
-        % Input: array of predators
-        function [x, y] = avoid_predators(obj, predators)
-            x = 0;
-            y = 0;
-            % If there is no predator, then the method does not affect
-            % the boid's direction.
-            if predators == 0
-                return;
-            else
-                if numel(predators) ~= 0
-                    num_close_predators = 0;
-                    for i = 1 : numel(predators)
-                        % Calculate distance between boid and predator.
-                        dx = obj.coord(1) - predators(i).coord(1);
-                        dy = obj.coord(2) - predators(i).coord(2);
-                        distance = sqrt(dx^2 + dy^2);
-                        % If distance is closer than 30, then calculate
-                        % vector that faces directly opposite from predator.
-                        if distance < 30
-                            num_close_predators = num_close_predators + 1;
-                            x = x + (dx * 30 / distance);
-                            y = y + (dy * 30 / distance);
-                        end
-                    end
-                    % Add all vectors created from each nearby predators,
-                    % and divide it by the number of predators. Then,
-                    % return the resulting vector.
-                    if num_close_predators ~= 0
-                        x = x / num_close_predators / 15;
-                        y = y / num_close_predators / 15;
-                    end
-                end
-            end
-        end
-        
-        
+        end 
         
         % Method that checks the speed of the boid, and reduces the speed
         % if it exceeds the limit speed.

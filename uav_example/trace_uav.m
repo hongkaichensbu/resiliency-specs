@@ -1,7 +1,5 @@
-% This file produce a trajectory of UAV controlled by a waypoint follower
-% trajhandle = @traj5;
-% runsim;
-%%
+% This file reproduce resuls in the UAV case study in "An STL-based Formulation of Resilience in Cyber-Physical Systems"
+clear
 InitReSV;
 load mavtraj.mat
 QP= QP2;
@@ -66,8 +64,8 @@ zdot_4 = zdot_4(1:end-1);
 d_4 = d_4(1:end-1);
 trace_4 = [x_4; y_4; z_4; xdot_4; ydot_4; zdot_4; d_4];
 
-%
-figure(1,1);
+%% Figure 3(a)
+figure;
 h_3d = gca;
 h_pos_hist = plot3(h_3d, x_4, y_4, z_4, 'r-','LineWidth',1.5);
 hold(h_3d, 'on')
@@ -87,8 +85,8 @@ zlim([0,30])
 hold(h_3d, 'off')
 % print('mav_3d','-dpng','-r400')
 
-
-figure(1,1);
+%% Figure 3(b)
+figure;
 line_color = 'b';
 line_width = 2;
 labels = {'x [m]', 'y [m]', 'z [m]', 'd [m]'};
