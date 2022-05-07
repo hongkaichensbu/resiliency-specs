@@ -1,5 +1,5 @@
-% Project - Boid Simulation
-% Author: Jin Woo Ahn
+% Boid Simulation
+
 InitReSV
 clear all;
 % close all;
@@ -22,7 +22,6 @@ for i = 1: numBoids
     boids(i)= Boid;
 end
 
-% boids(numBoids) = Boid;
 
 % Create an array of Predator objects.
 if numPreds == 0
@@ -54,11 +53,8 @@ if numPreds ~= 0
 end
 
 if WRITE_VIDEO == 1
-% Create video writer object.
 video = VideoWriter('Boids.avi', 'Motion JPEG AVI');
-% Set the frame rate.
 video.FrameRate = 20;
-% Open the video file.
 open(video);
 end
 
@@ -72,14 +68,11 @@ y_dot_boid = zeros(iteration, numBoids);
 % rng(10);
 boids_all = [];
 for t = 1 : iteration
-    % Simulation of boids.
-%     boids_tmp(numBoids) = Boid;
     for i = 1:numBoids
         boids_tmp(i) = Boid;
         boids_tmp(i).coord = boids(i).coord;
         boids_tmp(i).velocity = boids(i).velocity;
     end
-%     boids_all = cat(1, boids_all, boids);
     for i = 1:numBoids
         x_boid(t,i) = boids(i).coord(1);
         y_boid(t,i) = boids(i).coord(2);
@@ -119,7 +112,7 @@ for t = 1 : iteration
 end
 
 if WRITE_VIDEO == 1
-% Close video.
+
 close(video);
 end
 

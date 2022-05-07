@@ -1,15 +1,11 @@
 %% We plot the recoverability-durability-t 3D plots for all requirements
 InitReSV
 load mavtraj.mat
-% 1. base cases.
-% bool_1 = z_4>0;
-% [bool_1_rec,bool_1_dur]= rec_dur(bool_1, time_4, 4, beta)
 
 %% 4. package delivery
 distance_to_location = sqrt((x_4-10).^2 + (y_4+5).^2 + (z_4-20).^2);
 bool_1 = (x_4-10).^2 + (y_4+5).^2 + (z_4-20).^2<1;
 [bool_1_rec,bool_1_dur]= rec_dur(bool_1, time_4, 4, 4);
-
 
 figure= gcf;
 subplot(2,1,1);

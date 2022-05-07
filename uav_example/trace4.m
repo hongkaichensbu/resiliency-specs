@@ -1,11 +1,5 @@
 % This file produce a trajectory of UAV controlled by a waypoint follower
-
-% You can change trajectory here
-
-% trajectory generator
-% trajhandle = @traj4;
 trajhandle = @traj5;
-
 runsim;
 %%
 InitReSV
@@ -41,7 +35,6 @@ for i = 1:numel(x_4)
         d_4(i)  =  min(d1_tmp, d2_tmp);
     elseif x_4(i)>=6 && x_4(i) <=14 && y_4(i) <=0 && y_4(i) >= -10% on the second roof
         d_4(i) = z_4(i) - 18;
-%         z_4(i) - 18
     elseif x_4(i)>= -5 && x_4(i) <=6 && y_4(i) <= -5 && y_4(i) >= -15 % return to base
         pt = [x_4(i); y_4(i); z_4(i)];
         v1 = [-6;-5;0];
@@ -58,8 +51,6 @@ end
 
 trace_params = {'x', 'y', 'z', 'xdot','ydot', 'zdot','d'};
 trace_4 = [x_4; y_4; z_4; xdot_4; ydot_4; zdot_4; d_4];
-%
-% time_4 = 0:numel(x_4)-1; % in seconds
 
 time_4 = QP{1}.time_hist;
 
@@ -75,25 +66,25 @@ zdot_4 = zdot_4(1:end-1);
 d_4 = d_4(1:end-1);
 trace_4 = [x_4; y_4; z_4; xdot_4; ydot_4; zdot_4; d_4];
 %
-%%
-% figure;
-% subplot(4,1,1);
-% plot(x_4);
-% % legend('MAV altitude trajectory 4');
-% xlabel("time (seconds)");
-% ylabel("X (meters)");
-% subplot(4,1,2);
-% plot(y_4);
-% xlabel("time (seconds)");
-% ylabel("Y (meters)");
-% subplot(4,1,3);
-% plot(z_4);
-% xlabel("time (seconds)");
-% ylabel("Z (meters)");
-% subplot(4,1,4);
-% plot(d_4);
-% xlabel("time (seconds)");
-% ylabel("distance (meters)");
+figure
+h_3d = gca;
+h_pos_hist = plot3(h_3d, x_4, y_4, z_4, 'r-','LineWidth',1.5);
+hold(h_3d, 'on')
+% legend(h_pos_hist, 'UAV Trajectory');
+building_3d(h_3d); 
+labels = {'x [m]', 'y [m]', 'z [m]'};
+grid off
+c = [1;1;1;1];
+fill3(gca, [-25,-25,25,25],...
+        [-25,25,25,-25],...
+        [0,0,0,0], c, 'EdgeColor', 'none', 'LineWidth', 2,'HandleVisibility','off');
+xlabel(labels{1},'FontSize',14);
+ylabel(labels{2},'rotation',0,'FontSize',14);
+zlabel(labels{3},'rotation',0,'HorizontalAlignment','right','FontSize',14);
+xlim([-18,18])
+ylim([-15,10])
+zlim([0,30])
+% print('mav_3d','-dpng','-r400')
 
 line_color = 'b';
 line_width = 2;
@@ -104,7 +95,6 @@ state = [x_4;y_4;z_4;d_4];
 tt = tiledlayout(4,1,'TileSpacing','none','Padding','Compact');
 
 for i = 1:4
-% subplot(4, 1, i)
 nexttile
 hold on
 plot(time_4, state(i,:), line_color, 'LineWidth', line_width);
@@ -128,8 +118,8 @@ end
         
 ylabel(labels{i},'rotation',0,'HorizontalAlignment','right', 'FontSize',14);
 end
-print('MAV_coordinate3','-dpng','-r400')
-%% Put temporal operators as BASE CASE STL-based Res Spec
+% print('MAV_coordinate3','-dpng','-r400')
+%% Table 1
 isBase = true;
 % Drone height constraints
 [psi_height, ~] = STL_Formula('psi2','alw_[0,104.05] z[t] <= 120', isBase, [4,4]); 
@@ -157,7 +147,7 @@ resv_collision_avoid = STL_EvalReSV(trace_params,time_4,trace_4, psi_collision_a
 toc
 disp_ReSV(resv_collision_avoid);
 
-%% Put temporal operators outside the BASE CASE STL-based Res Spec
+%% Table 2
 isBase = true;
 % Drone height constraints
 [psi_height2, ~] = STL_Formula('psi2','z[t] <= 120', isBase, [4,4]); 
@@ -174,12 +164,6 @@ disp_ReSV(resv_height2);
 [psi_delivery1_full1, ~] = STL_Formula('psi3_full1','alw_[0,1] psi3', ~isBase); 
 [psi_delivery1_full2, ~] = STL_Formula('psi3_full2', 'ev_[0,43] psi3_full1', ~isBase);
 
-% for delivery 2, we need to start G from a point that makes the reovery in
-% the first episode shorter than that in the second since the duration in
-% the second is larger than the first (perhaps we could play with alpha and beta to
-% make them equivalent wrt to resiliency but the ordering is final). The
-% second episode should be start from a small portion of its recovery for
-% the same reasons.
 [psi_delivery2_full1, ~] = STL_Formula('psi4_full1','alw_[0,3] psi4', ~isBase); 
 [psi_delivery2_full2, ~] = STL_Formula('psi4_full2', 'ev_[0,65] psi4_full1', ~isBase);
 
