@@ -1,4 +1,0 @@
-InitReSV;
-load mavtraj.mat
-
-%%

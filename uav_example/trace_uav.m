@@ -1,8 +1,8 @@
 % This file produce a trajectory of UAV controlled by a waypoint follower
-trajhandle = @traj5;
-runsim;
+% trajhandle = @traj5;
+% runsim;
 %%
-InitReSV
+InitReSV;
 load mavtraj.mat
 QP= QP2;
 
@@ -65,12 +65,12 @@ ydot_4 = ydot_4(1:end-1);
 zdot_4 = zdot_4(1:end-1);
 d_4 = d_4(1:end-1);
 trace_4 = [x_4; y_4; z_4; xdot_4; ydot_4; zdot_4; d_4];
+
 %
-figure
+figure(1,1);
 h_3d = gca;
 h_pos_hist = plot3(h_3d, x_4, y_4, z_4, 'r-','LineWidth',1.5);
 hold(h_3d, 'on')
-% legend(h_pos_hist, 'UAV Trajectory');
 building_3d(h_3d); 
 labels = {'x [m]', 'y [m]', 'z [m]'};
 grid off
@@ -84,12 +84,14 @@ zlabel(labels{3},'rotation',0,'HorizontalAlignment','right','FontSize',14);
 xlim([-18,18])
 ylim([-15,10])
 zlim([0,30])
+hold(h_3d, 'off')
 % print('mav_3d','-dpng','-r400')
 
+
+figure(1,1);
 line_color = 'b';
 line_width = 2;
 labels = {'x [m]', 'y [m]', 'z [m]', 'd [m]'};
-figure;
 state = [x_4;y_4;z_4;d_4];
 
 tt = tiledlayout(4,1,'TileSpacing','none','Padding','Compact');
