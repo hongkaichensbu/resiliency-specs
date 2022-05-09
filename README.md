@@ -38,9 +38,9 @@ Run trace_uav.m file in uav_example/control.
 
 ## Flock Formation
 
-We use an implememtation of the Reynolds flocking model [2] for generating trajectories.
+We use an implememtation of the Reynolds flocking model [2,3] for generating trajectories.
 
-> [2] Reynolds, Craig W. "Flocks, herds and schools: A distributed behavioral model." Proceedings of the 14th Annual Conference on Computer Graphics and Interactive Techniques. 1987.
+> [2] Reynolds, Craig W. "Flocks, herds and schools: A distributed behavioral model." Proceedings of the 14th Annual Conference on Computer Graphics and Interactive Techniques. 1987.  
 > [3] Reynolds, Craig W. "Steering behaviors for autonomous characters." Game Developers Conference. Vol. 1999. 1999.
 
 ### Re-produce results in the paper
