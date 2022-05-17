@@ -32,9 +32,9 @@ We use an [implememtation](https://github.com/yrlu/quadrotor) of quadrotor model
 
 > [1] Michael, Nathan, et al. "The GRASP multiple micro-UAV testbed." IEEE Robotics & Automation Magazine 17.3 (2010): 56-65. 
 
-### Re-produce results in the paper
+### Re-produce Fig 3, Tables 1 and 2 in the paper
 
-Run trace_uav.m file in uav_example/control.
+Run trace_uav.m file under uav_example/.
 
 ## Flock Formation
 
@@ -43,10 +43,10 @@ We use an implememtation of the Reynolds flocking model [2,3] for generating tra
 > [2] Reynolds, Craig W. "Flocks, herds and schools: A distributed behavioral model." Proceedings of the 14th Annual Conference on Computer Graphics and Interactive Techniques. 1987.  
 > [3] Reynolds, Craig W. "Steering behaviors for autonomous characters." Game Developers Conference. Vol. 1999. 1999.
 
-### Re-produce results in the paper
+### Re-produce Figs 4 and 5, Tables 3 and 4 in the paper
 
-Run the trace1.m file. Then run plot_flock_snapshots.m file.
+Go to "flocking_example" folder. Run the trace1.m file. Then run plot_flock_snapshots.m file.
 
 ### Run the flock simulation
 
-Run Boids.m file.
+Go to "flocking_example" folder. Run Boids.m file.
