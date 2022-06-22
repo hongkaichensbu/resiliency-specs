@@ -83,7 +83,8 @@ xlim([-18,18])
 ylim([-15,10])
 zlim([0,30])
 hold(h_3d, 'off')
-% print('mav_3d','-dpng','-r400')
+view(11.519017424197109,56.527913948157284);
+print('figures\figure3a','-dpng','-r400')
 
 %% Figure 3(b)
 figure;
@@ -118,68 +119,68 @@ end
         
 ylabel(labels{i},'rotation',0,'HorizontalAlignment','right', 'FontSize',14);
 end
-% print('MAV_coordinate3','-dpng','-r400')
+print('figures\figure3b','-dpng','-r400')
 %% Table 1
 isBase = true;
 % Drone height constraints
-[psi_height, ~] = STL_Formula('psi2','alw_[0,104.05] z[t] <= 120', isBase, [4,4]); 
+[psi_height_tb1, ~] = STL_Formula('psi2','alw_[0,130] z[t] <= 120', isBase, [4,4]); 
 tic
-resv_height2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_height,0);
-toc
-disp_ReSV(resv_height2);
+resv_height2_tb1 = STL_EvalReSV(trace_params,time_4,trace_4, psi_height_tb1,0);
+resv_height2_tb1_et=toc;
+disp_ReSV(resv_height2_tb1);
 
 % Drone delivery
-[psi_delivery1, ~] = STL_Formula('psi3','ev_[0,43] alw_[0,1] (x[t]+10)^2+(y[t]-0)^2+(z[t]-30)^2<1', isBase, [4,4]); 
-[psi_delivery2, ~] = STL_Formula('psi4','ev_[0,65] alw_[0,3] (x[t]-10)^2+(y[t]+5)^2+(z[t]-20)^2<1', isBase, [4,4]); 
+[psi_delivery1_tb1, ~] = STL_Formula('psi3','ev_[0,43] alw_[0,1] (x[t]+10)^2+(y[t]-0)^2+(z[t]-30)^2<1', isBase, [4,4]); 
+[psi_delivery2_tb1, ~] = STL_Formula('psi4','ev_[0,65] alw_[0,3] (x[t]-10)^2+(y[t]+5)^2+(z[t]-20)^2<1', isBase, [4,4]); 
 tic
-resv_delivery1 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery1,0);
-disp_ReSV(resv_delivery1);
-toc
+resv_delivery1_tb1 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery1_tb1,0);
+resv_delivery1_tb1_et=toc;
+disp_ReSV(resv_delivery1_tb1);
 tic
-resv_delivery2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery2,0);
-disp_ReSV(resv_delivery2);
-toc
+resv_delivery2_tb1 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery2_tb1,0);
+resv_delivery2_tb1_et=toc;
+disp_ReSV(resv_delivery2_tb1);
 
 % collision avoidance
-[psi_collision_avoid, ~] = STL_Formula('psi_collision_avoid','alw_[0,104.05] d[t] >= 2', isBase, [4,4]); 
+[psi_collision_avoid_tb1, ~] = STL_Formula('psi_collision_avoid','alw_[0,104.05] d[t] >= 2', isBase, [4,4]); 
 tic
-resv_collision_avoid = STL_EvalReSV(trace_params,time_4,trace_4, psi_collision_avoid,0);
-toc
-disp_ReSV(resv_collision_avoid);
+resv_collision_avoid_tb1 = STL_EvalReSV(trace_params,time_4,trace_4, psi_collision_avoid_tb1,0);
+resv_collision_avoid_tb1_et=toc;
+disp_ReSV(resv_collision_avoid_tb1);
 
 %% Table 2
 isBase = true;
 % Drone height constraints
-[psi_height2, ~] = STL_Formula('psi2','z[t] <= 120', isBase, [4,4]); 
-[psi_height2_full, ~] = STL_Formula('psi2_full','alw_[0,130] psi2', ~isBase); 
+[psi_height2_tb2, ~] = STL_Formula('psi2','z[t] <= 120', isBase, [4,4]); 
+[psi_height2_tb2_full, ~] = STL_Formula('psi2_full','alw_[0,130] psi2', ~isBase); 
 tic
-resv_height2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_height2_full,0);
-toc
-disp_ReSV(resv_height2);
+resv_height2_tb2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_height2_tb2_full,0);
+resv_height2_tb2_et = toc;
+disp_ReSV(resv_height2_tb2);
 
 % Drone delivery
-[psi_delivery1, ~] = STL_Formula('psi3','(x[t]+10)^2+(y[t]-0)^2+(z[t]-30)^2<1', isBase, [4,4]); 
-[psi_delivery2, ~] = STL_Formula('psi4','(x[t]-10)^2+(y[t]+5)^2+(z[t]-20)^2<1', isBase, [4,4]); 
+[psi_delivery1_tb2, ~] = STL_Formula('psi3','(x[t]+10)^2+(y[t]-0)^2+(z[t]-30)^2<1', isBase, [4,4]); 
+[psi_delivery2_tb2, ~] = STL_Formula('psi4','(x[t]-10)^2+(y[t]+5)^2+(z[t]-20)^2<1', isBase, [4,4]); 
 
-[psi_delivery1_full1, ~] = STL_Formula('psi3_full1','alw_[0,1] psi3', ~isBase); 
-[psi_delivery1_full2, ~] = STL_Formula('psi3_full2', 'ev_[0,43] psi3_full1', ~isBase);
+[psi_delivery1_tb2_full1, ~] = STL_Formula('psi3_full1','alw_[0,1] psi3', ~isBase); 
+[psi_delivery1_tb2_full2, ~] = STL_Formula('psi3_full2', 'ev_[0,43] psi3_full1', ~isBase);
 
-[psi_delivery2_full1, ~] = STL_Formula('psi4_full1','alw_[0,3] psi4', ~isBase); 
-[psi_delivery2_full2, ~] = STL_Formula('psi4_full2', 'ev_[0,65] psi4_full1', ~isBase);
+[psi_delivery2_tb2_full1, ~] = STL_Formula('psi4_full1','alw_[0,3] psi4', ~isBase); 
+[psi_delivery2_tb2_full2, ~] = STL_Formula('psi4_full2', 'ev_[0,65] psi4_full1', ~isBase);
 
 tic
-resv_delivery1 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery1_full2,0);
-disp_ReSV(resv_delivery1);
-toc
+resv_delivery1_tb2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery1_tb2_full2,0);
+resv_delivery1_tb2_et=toc;
+disp_ReSV(resv_delivery1_tb2);
 tic
-resv_delivery2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery2_full2,0);
-disp_ReSV(resv_delivery2);
-toc
+resv_delivery2_tb2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_delivery2_tb2_full2,0);
+resv_delivery2_tb2_et=toc;
+disp_ReSV(resv_delivery2_tb2);
 
 % collision avoidance
-[psi_collision_avoid, ~] = STL_Formula('psi_collision_avoid','d[t] >= 1.5', isBase, [4,4]); 
-[psi_collision_avoid_full, ~] = STL_Formula('psi_collision_avoid_full','alw_[0,130] psi_collision_avoid', ~isBase); 
+[psi_collision_avoid_tb2, ~] = STL_Formula('psi_collision_avoid','d[t] >= 1.5', isBase, [4,4]); 
+[psi_collision_avoid_tb2_full, ~] = STL_Formula('psi_collision_avoid_full','alw_[0,130] psi_collision_avoid', ~isBase); 
 tic
-resv_collision_avoid = STL_EvalReSV(trace_params,time_4,trace_4, psi_collision_avoid_full,0);
-toc
-disp_ReSV(resv_collision_avoid);
+resv_collision_avoid_tb2 = STL_EvalReSV(trace_params,time_4,trace_4, psi_collision_avoid_tb2_full,0);
+resv_collision_avoid_tb2_et=toc;
+disp_ReSV(resv_collision_avoid_tb2);

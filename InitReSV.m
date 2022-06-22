@@ -10,6 +10,7 @@ addpath("uav_example\control")
 addpath("uav_example\control\utils")
 addpath("uav_example\control\trajectories\")
 addpath("flocking_example\")
+addpath("test\")
 fprintf("Done.\n")
 
 cd('breach')

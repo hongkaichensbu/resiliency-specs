@@ -1,13 +1,17 @@
 %% This file is the implementation of Example 2 in paper "An STL-based Formulation of Resilience in Cyber-Physical Systems"
 InitReSV
+% the original signal
 xp = [ -2, -1, 1, 2, 3, 1, -1, -2, 1, 2, 3, 2, 1, -1, -2, -1, 1, 2, 3, 2, 1, -1, -2, -3, -2, -1];
+% Boolean values of the signal w.r.t. (x>0)
 x = 2*((xp>=0)-0.5);
+% time steps
 t = 0:length(x)-1;
 
+% recoverability and durability of the signal
 alpha = 1;
 beta = 2;
 rec = -[2, 1, 0 ,0 , 0, 0, 2, 1, 0, 0, 0, 0, 0, 3, 2, 1, 0, 0, 0, 0, 0, 4, 3, 2, 1, 0] + alpha;
-dur =  [ 4, 4, 4, 3, 2, 1, 5, 5, 5, 4, 3, 2, 1, 5, 5, 5, 5, 4, 3, 2, 1, 0, 0, 0, 0, 0] -beta;
+dur =  [ 4, 4, 4, 3, 2, 1, 5, 5, 5, 4, 3, 2, 1, 5, 5, 5, 5, 4, 3, 2, 1, 0, 0, 0, 0, 0] - beta;
 
 %% Plot figure 2(a)
 figure;
@@ -59,6 +63,8 @@ ylabel('$t_{dur}(x>0,x,t'')-\beta$','Interpreter','latex', 'FontSize', 12);
 ax = gca;
 ax.YAxis(1).Color = 'red';
 ax.YAxis(2).Color = 'blue';
+
+saveas(gcf,"figures\figure2a.png");
 %% Plot Figure 2(b)
 figure;
 scatter(rec(1:21),dur(1:21),200, [153,153,153]/255 ,'filled','HandleVisibility','off'); hold on
@@ -71,13 +77,22 @@ xlim([-3.5,2.5])
 ylim([-2.5, 4.5])
 xlabel("Recoverability", 'FontSize', 16);
 ylabel("Durability", 'FontSize', 16);
-%% Computes the r-value of psi_1 
+
+saveas(gcf,"figures\figure2b.png");
+
+%% Computes the r-value of psi_1 at time 0
 trace_params = {'x'};
 trace_exp2 = xp;
-
 isBase = true;
 
 [psi, ~] = STL_Formula('psi1','x[t] > 0', isBase, [1,2]); 
 [psi_f, ~] = STL_Formula('psi1_full','alw_[0,20] psi1', ~isBase); 
+fprintf("Computing Example 2........\n");
 resv_exp2 = STL_EvalReSV(trace_params,t,trace_exp2, psi_f,0);
+fprintf("Results of Example 2........\n");
 disp_ReSV(resv_exp2);
+
+Cols = ["r(\psi_1,\xi,0)", "Correspond SRS atom"];
+writematrix(Cols,'tables\Example2.xls','Range','A1:B1');
+[alpha_beta, resv_values] = resv2mat(resv_exp2);
+writematrix([resv_values(1), resv_values(2)], 'tables\Example2.xls','Range','A2:B2');

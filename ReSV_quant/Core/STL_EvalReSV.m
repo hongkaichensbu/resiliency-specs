@@ -69,7 +69,7 @@ function [resv_value, output_SRSatompairs] = GetReSVValues(trace_param, time, tr
         fprintf("Computing all the r-values of SRS atom ("+ disp(formula)+")......\n");tic;
         all_rec_dur_pair = compute_pair_over_traj(trace_param, time, trace, formula);
         elapsedtime = toc;
-        fprintf("Done! Used " + elapsedtime +" seconds.\n");
+%         fprintf("Done! Used " + elapsedtime +" seconds.\n");
         
         num_atom = size(current_SRSatompairs,2);
         current_SRSatompairs{1,num_atom+1} = formula;

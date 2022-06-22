@@ -1,4 +1,4 @@
-function st = disp_ReSV(resv, disp_full)
+function [st,sel_i] = disp_ReSV(resv, disp_full)
 %DISP_RESV display values, formula, and timestamp
 
 num_ele = numel(resv.element);
@@ -23,7 +23,7 @@ for i = 1:num_ele
 end
 
 fprintf("------------------------------------------------------------\n");
-fprintf("Recoverability   Durability          Formula          Timestamp       Alpha      Beta\n");
+fprintf("Recoverability   Durability         SRS atom          Timestamp       Alpha      Beta\n");
 if nargin == 2 && varargin(2) == true
     for i = 1:num_ele
         %     fprintf(st(i,:))
@@ -57,10 +57,10 @@ else
     end
     for i = sel_i
         info_formula = disp(resv.element{i}.formula, 0);
-        fprintf(['     ',num2str(resv.element{i}.values.Recoverablity(1)),'              ',...
-            num2str(resv.element{i}.values.Durability(1)),'         ',...
-            info_formula,'       ', num2str(resv.element{i}.t),'           ', ...
-            num2str(resv.element{i}.alpha),'           ', ...
+        fprintf(['     ',num2str(resv.element{i}.values.Recoverablity(1)),'       |       ',...
+            num2str(resv.element{i}.values.Durability(1)),'    |      ',...
+            info_formula,'   |    ', num2str(resv.element{i}.t),'     |      ', ...
+            num2str(resv.element{i}.alpha),'     |      ', ...
             num2str(resv.element{i}.beta)]);
         fprintf('\n');
     end

@@ -10,7 +10,7 @@ J_array = declarative_cost(x_boid, y_boid, omega, radius);
 radius = 25;
 number_array = num_cc(x_boid, y_boid, radius);
 
-figure;
+h=figure;
 subplot(1,2,1)
 plot(time(1:2:end), J_array(1:2:end), 'LineWidth',1.5);
 hold on
@@ -31,4 +31,5 @@ ylabel('$|CC(\mathbf{x})|$','Interpreter','latex', 'FontSize', 10,'rotation',0,'
 xlabel('time [s]')
 ylim([1,numBoids])
 yticks([1:5:30, 30])
-% print('flock_traj','-dpng','-r400')
+h.Position = [255.4,529,792.6,233];
+print('figures\figure4','-dpng','-r400')

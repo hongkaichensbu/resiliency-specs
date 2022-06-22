@@ -1,4 +1,4 @@
-figure;
+f5=figure;
 tt = tiledlayout(1,4,'TileSpacing','none','Padding','Compact');
 
 t = [1, 645, 3000, 3330];
@@ -42,5 +42,6 @@ xticks([])
 yticks([])
 
 end
+f5.Position = [255.4,529,792.6,233];
 
-% print('flock_snapshot','-dpng','-r400')
+print('figures\figure5','-dpng','-r400')
